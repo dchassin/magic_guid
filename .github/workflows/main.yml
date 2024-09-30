@@ -13,11 +13,5 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install
-      run: |
-        python -m venv .venv
-        source .venv/bin/activate
-        python3 -m pip install .
-
     - name: Validate
-      run: mguid validate
+      run: python magic_guid/__init__.py validate
