@@ -9,6 +9,8 @@ Options
 
 * -v|--version|version: Display the mguid version
 
+* -V|--validate|vadliate: Run validation tests
+
 * version=INT: Set the magic trick version (default 0).
 
 * magic=INT: Set the magic number (default random 61 bit integer).
