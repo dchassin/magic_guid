@@ -1,18 +1,65 @@
-<p><a
-href="https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml"><img
-src="https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml/badge.svg?branch=main"
-alt="validate-main" /></a> <a
-href="https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment"><img
-src="https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment/badge.svg"
-alt="pages-build-deployment" /></a></p>
-<p>Magic GUIDs contain a pattern that is verifiable if the magic number
-is known. Two magic GUIDs can be compared to check if they were
-generated using the same magic number.</p>
-<h2 id="installation">Installation</h2>
-<p>To install from a repository</p>
-<pre><code>git clone https://github.com/dchassin/magic_guid
-python3 -m pip install magic_guid</code></pre>
-<h2 id="command-line-help">Command Line Help</h2>
-<pre><code>mguid help</code></pre>
-<h2 id="documentation">Documentation</h2>
-<p>See https://www.chassin.org/magic_guid/ for online documentation.</p>
+<p>Generate a GUID that conforms to a magic number</p>
+<p>Syntax: mguid [OPTION …]</p>
+<h2 id="options">Options</h2>
+<ul>
+<li><p><code>-h|--help|help</code>: Display this help
+information</p></li>
+<li><p><code>-v|--version|version</code>: Display the mguid
+version</p></li>
+<li><p><code>-V|--validate|vadliate</code>: Run validation
+tests</p></li>
+<li><p><code>version=INT</code>: Set the magic trick version (default
+0).</p></li>
+<li><p><code>magic=INT</code>: Set the magic number (default random 61
+bit integer).</p></li>
+<li><p><code>trick=INT[,MAGIC[,VERSION]]</code>: Generate the check code
+using the magic number and the magic trick version.</p></li>
+<li><p><code>random[=MAGIC]</code>: Generate a magic random
+GUID</p></li>
+<li><p><code>check=[GUID[,MAGIC]]</code>: Check whether a GUID is
+magic</p></li>
+<li><p><code>same=[GUID,GUID[,MAGIC]]</code>: Check whether two GUIDs
+are generate with the same magic.</p></li>
+</ul>
+<h2 id="description">Description</h2>
+<p>Magic GUIDs contain a pattern that uniquely identifiable if the magic
+trick is known. The <code>random</code> option generates a Version 4
+GUID using a random magic trick. If you know the magic trick you can
+verify that a GUID was generated with the trick by using the
+<code>check</code> option. If you have two GUIDs, you can verify that
+they were generated using the same magic trick using the
+<code>same</code> option.</p>
+<h2 id="command-line-examples">Command Line Examples</h2>
+<pre><code>$ mguid random=123
+f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af
+
+$ magic_guid david$ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,123 &amp;&amp; echo ok || echo fail
+ok
+
+$ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,456 &amp;&amp; echo ok || echo fail
+fail
+
+$ mguid random=123
+2f210452-75be-4d3b-a2f2-1045275bed40
+
+$ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,2f210452-75be-4d3b-a2f2-1045275bed40 &amp;&amp; echo ok || echo fail
+ok
+
+$ mguid random=456
+
+0a335b25-d565-40fd-80a3-35b25d565135
+$ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,0a335b25-d565-40fd-80a3-35b25d565135 &amp;&amp; echo ok || echo fail
+fail</code></pre>
+<h2 id="python-examples">Python Examples</h2>
+<pre><code>&gt;&gt;&gt; from magic_guid import random, check, same
+&gt;&gt;&gt; random()
+0c7d4f21-b322-41183-8086-479cd4100f63e 
+
+&gt;&gt;&gt; check(random())
+True 
+
+&gt;&gt;&gt; same(random(magic=123),random(magic=123))
+True 
+
+&gt;&gt;&gt; same(random(magic=123),random(magic=456))
+False </code></pre>
