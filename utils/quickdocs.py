@@ -6,6 +6,7 @@ The generate the docs run this script.
 """
 import magic_guid as module
 import re
+import datetime as dt
 
 package = module.importlib.metadata.distribution(module.__name__).metadata
 package_name = package['name'].replace('_',' ').title()
@@ -143,11 +144,13 @@ with open("docs/index.html","w") as html:
             write_html(f"<p/><code>{name} = {value}</code>")
 
     write_html("""\n<h1 id="package" class="w3-container">Package Metadata</h1>\n""")
-    write_html("<table>\n")
+    write_html("""<p/><table class="w3-container">\n""")
     for key,data in package.items():
         if not key.startswith("Description"):
-            write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>{data}</td></tr>")
+            write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>:</td><td>{data}</td></tr>\n")
     write_html("</table>\n")
+
+    write_html(f"<hr/><p/><cite>Copyright &copy; {dt.datetime.now().year} David P. Chassin")
 
     write_html("""</body>
         </html>""",nl=True)

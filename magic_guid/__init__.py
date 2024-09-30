@@ -1,4 +1,4 @@
-"""Generate a GUID that using a magic number
+"""Generate a GUID using a magic number
 
 Syntax: mguid [OPTION ...]
 
@@ -12,7 +12,7 @@ Options:
 
     * version=INT: Set the magic trick version (default 0).
 
-    * magic=INT: Set the magic number (default random 61 bit integer).
+    * magic=INT: Set the magic number (default random 60 bit integer).
 
     * trick=INT[,MAGIC[,VERSION]]: Generate the check code using the magic number
       and the magic trick version.
@@ -32,6 +32,11 @@ random magic number. If you know the magic number you can verify that a GUID
 was generated with the magic number by using the `check` option.  If you have
 two GUIDs, you can verify that they were generated using the same magic
 number using the `same` option.
+
+If you do not specify the magic number, a random magic number is generated the
+first time you use the `gen()` function, or a function that calls `gen
+()`, e.g., `random()` or `validate()`. You can set the magic number using the
+`MAGIC` module constant, e.g., `MAGIC=gen()`, `MAGIC=123456`.  
 
 Command Line Examples:
 
