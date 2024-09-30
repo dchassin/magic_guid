@@ -15,8 +15,8 @@ jobs:
 
     - name: Lint
       run: |
-        sudo python -m pip install pip --upgrade pylint
+        sudo python3 -m pip install pip --upgrade pylint
         pylint magic_guid/__init__.py
 
     - name: Validate
-      run: python magic_guid/__init__.py validate
+      run: python3 magic_guid/__init__.py validate
