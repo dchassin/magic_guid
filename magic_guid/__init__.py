@@ -243,6 +243,7 @@ def main(argv:[list[str]|None]=None) -> int:
         return E_OK
     if argv[1] in ["-V","--validate","validate"]:
         validate()
+        print("Validation ok")
         return E_OK
 
     for arg in argv[1:]:
