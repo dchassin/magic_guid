@@ -1,4 +1,4 @@
-name: validate-main
+name: Validate main
 
 on:
   push:
