@@ -5,18 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "magic_guid"
 version = "0.0.0a0"
-description = "GUIDs generated with magic number that is verifiable"
+description = "GUIDs that are verifiably generated with magic number"
 authors = [
-    {name = "David P. Chassin", email="dpchassin@gmail.com"},
+    {name = "David P. Chassin <dpchassin@gmail.com>"},
     ]
 maintainers = [
-    {name = "David P. Chassin", email="dpchassin@gmail.com"},
+    {name = "David P. Chassin <dpchassin@gmail.com>"},
     ]
 readme = "README.md"
 requires-python = ">= 3.10"
 dependencies = [
     ]
 keywords = ["guid","magic"]
+license = {text="MIT License"}
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",

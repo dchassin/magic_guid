@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+    <title>Magic Guid</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Magic Guid</h1>
+
+Generate a GUID that using a magic number
+<p/>Syntax: <code>mguid [OPTION ...]</code><p/>
+<h2>Options</h2>
+<p/><ul></li>
+<li><code>-h|--help|help</code>:  Display this help information</li>
+<li><code>-v|--version|version</code>:  Display the mguid version</li>
+<li><code>-V|--validate|validate</code>:  Run validation tests</li>
+<li><code>version=INT</code>:  Set the magic trick version (default 0).</li>
+<li><code>magic=INT</code>:  Set the magic number (default random 61 bit integer).</li>
+<li><code>trick=INT[,MAGIC[,VERSION]]</code>:  Generate the check code using the magic number and the magic trick version.</li>
+<li><code>random[=MAGIC]</code>:  Generate a magic random GUID</li>
+<li><code>check=[GUID[,MAGIC]]</code>:  Check whether a GUID is magic</li>
+<li><code>same=[GUID,GUID[,MAGIC]]</code>:  Check whether two GUIDs are generate with the same magic.</ul>
+
+<h2>Description</h2>
+<p/>Magic GUIDs contain a pattern that is uniquely identifiable if the magic
+number is known.  The <code>random</code>_ option generates a Version 4 GUID using a
+random magic number. If you know the magic number you can verify that a GUID
+was generated with the magic number by using the <code>check</code> option.  If you have
+two GUIDs, you can verify that they were generated using the same magic
+number using the <code>same</code> option.
+<p/>
+<h2>Command Line Examples</h2>
+<p/>Generate a GUID using the magic number 123.
+<p/><pre>$ mguid random=123
+f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af
+</pre>
+Check whether the GUID was generated using the magic number 123.
+<p/><pre>$ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,123 && echo ok || echo fail
+ok
+</pre>
+Check whether the GUID was generated using the magic number 456.
+<p/><pre>$ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,456 && echo ok || echo fail
+fail
+</pre>
+Generates another GUID using the magic number 123.
+<p/><pre>$ mguid random=123
+2f210452-75be-4d3b-a2f2-1045275bed40
+</pre>
+Checks whether the two GUIDs were generated using the same magic number.
+<p/><pre>$ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,2f210452-75be-4d3b-a2f2-1045275bed40 && echo ok || echo fail
+ok
+</pre>
+Generate another GUID using the magic number 456.
+<p/><pre>$ mguid random=456
+0a335b25-d565-40fd-80a3-35b25d565135
+</pre>
+Check whether the new GUID was generared using the same magic number as the old GUID
+<p/><pre>$ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,0a335b25-d565-40fd-80a3-35b25d565135 && echo ok || echo fail
+fail
+</pre>
+
+<h2>Python Examples</h2>
+<p/>Import the module.
+<p/><pre>>>> import magic_guid as mg
+</pre>
+Generate a GUID.
+<p/><pre>>>> mg.random()
+0c7d4f21-b322-41183-8086-479cd4100f63e 
+</pre>
+Check a GUID.
+<p/><pre>>>> mg.check(mg.random())
+True 
+</pre>
+Check whether two GUIDs are generated using the same magic number.
+<p/><pre>>>> mg.same(mg.random(magic=123),mg.random(magic=123))
+True 
+</pre>
+Check whether two GUIDs are generated using the same magic number.
+<p/><pre>>>> mg.same(mg.random(magic=123),mg.random(magic=456))
+False 
+</pre>
+
+<h1>Python Documentation</h1>
+
+<h2>check(<b>a</b>:<i>str</i>, <b>magic</b>:<i>int</i>)</h2>
+Check whether a GUID was generated using a magic number
+<p/><h3>Arguments:</h3>
+<ul><li><code>a (str)</code>:  a GUID to test</li>
+<li><code>magic (int)</code>:  the magic number to use in the test (default magic_guid.MAGIC)</li>
+</ul>
+<h3>Returns:</h3>
+<ul><li><code>bool</code>:  True if a was generated using magic, otherwise False</li>
+</ul>
+    
+
+<h2>gen()</h2>
+Generate a N-bit random number
+<p/><h3>Arguments:</h3>
+<ul><li><code>bits (int)</code>:  the number of bits to generate (default 61)</li>
+</ul>
+<h3>Returns:</h3>
+<ul><li><code>int</code>:  a N-bit random number</li>
+</ul>
+    
+
+<h2>main(<b>argv</b>:<i>[list[str] | None]</i>)</h2>
+Main CLI
+<p/><h3>Arguments:</h3>
+<ul><li><code>argv (list[str])</code>:  argument list</li>
+</ul>
+<h3>Returns:</h3>
+<ul><li><code>int</code>:  exit code</li>
+</ul>
+    
+
+<h2>random(<b>magic</b>:<i>int</i>)</h2>
+Generate a GUID using a magic number
+<p/><h3>Arguments:</h3>
+<ul><li><code>magic (int)</code>:  the magic number to use (default magic_guid.MAGIC)</li>
+</ul>
+<h3>Returns:</h3>
+<ul><li><code>int</code>:  a magic GUID</li>
+</ul>
+    
+
+<h2>same(<b>a</b>:<i>str</i>, <b>b</b>:<i>str</i>)</h2>
+Check whether two GUIDs were generated using the same magic number
+<p/><h3>Arguments:</h3>
+<ul><li><code>a (str)</code>:  the first magic GUID</li>
+<li><code>b (str)</code>:  the second magic GUID</li>
+</ul>
+<h3>Returns:</h3>
+<ul><li><code>bool</code>:  True if a and b were generated using the same magic number</li>
+</ul>
+    
+
+<h2>trick(<b>a</b>:<i>int</i>, <b>magic</b>:<i>int</i>, <b>version</b>:<i>int</i>)</h2>
+Generate the check code using the magic number
+<p/><h3>Arguments:</h3>
+<ul><li><code>a (int)</code>:  the number to run the magic trick on</li>
+<li><code>magic (int)</code>:  the magic number to use</li>
+<li><code>version (int)</code>:  the version of the magic trick to use (default magic_guid.VERSION)</li>
+</ul>
+<h3>Returns:</h3>
+<ul><li><code>int</code>:  the result of the magic trick</li>
+</ul>
+    
+
+<h2>validate()</h2>
+Run validation tests
+<h2>Python Constants</h2><p/><code>E_ERROR = 1</code><p/><code>E_EXCEPTION = 2</code><p/><code>E_OK = 0</code><p/><code>MAGIC = None</code><p/><code>VERSION = 0</code>
+<h1>Package Metadata</h1>
+<table>
+<tr><th><nobr>Metadata-Version</nobr></th><td>2.1</td></tr><tr><th><nobr>Name</nobr></th><td>magic_guid</td></tr><tr><th><nobr>Version</nobr></th><td>0.0.0a0</td></tr><tr><th><nobr>Summary</nobr></th><td>GUIDs that are verifiably generated with magic number</td></tr><tr><th><nobr>Author</nobr></th><td>David P. Chassin <dpchassin@gmail.com></td></tr><tr><th><nobr>Maintainer</nobr></th><td>David P. Chassin <dpchassin@gmail.com></td></tr><tr><th><nobr>License</nobr></th><td>MIT License</td></tr><tr><th><nobr>Project-Url</nobr></th><td>Homepage, <a href="https://github.com/dchassin/magic_guid" target="_tab">https://github.com/dchassin/magic_guid</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>Documentation, <a href="https://magic_guid.gitub.io/" target="_tab">https://magic_guid.gitub.io/</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>Repository, <a href="https://github.com/dchassin/magic_guid.git" target="_tab">https://github.com/dchassin/magic_guid.git</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>Issues, <a href="https://github.com/dchassin/magic_guid/issues" target="_tab">https://github.com/dchassin/magic_guid/issues</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>ChangeLog, <a href="https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md" target="_tab">https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md</a></td></tr><tr><th><nobr>Keywords</nobr></th><td>guid,magic</td></tr><tr><th><nobr>Classifier</nobr></th><td>Development Status :: 3 - Alpha</td></tr><tr><th><nobr>Classifier</nobr></th><td>Intended Audience :: Developers</td></tr><tr><th><nobr>Classifier</nobr></th><td>License :: OSI Approved :: MIT License</td></tr><tr><th><nobr>Classifier</nobr></th><td>Programming Language :: Python :: 3 :: Only</td></tr><tr><th><nobr>Classifier</nobr></th><td>Topic :: Software Development :: Libraries</td></tr><tr><th><nobr>Requires-Python</nobr></th><td>>=3.10</td></tr><tr><th><nobr>License-File</nobr></th><td>LICENSE</td></tr></table>
+</body>
+        </html>

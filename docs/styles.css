@@ -1,0 +1,30 @@
+body {
+    margin: 20px;
+}
+
+h1 {
+    background-color: lightblue;
+    color: black;
+}
+
+h2 {
+    background-color: lightgrey;
+    color: black;
+}
+
+li {
+    margin-top: 5px;
+}
+
+table {
+    border-spacing: 10px;
+}
+
+th {
+    text-align: left;
+}
+
+pre {
+    background-color: #eeeeee;
+    margin-left: 20px;
+}

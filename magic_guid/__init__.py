@@ -1,78 +1,99 @@
-"""Generate a GUID that conforms to a magic number
+"""Generate a GUID that using a magic number
 
-Syntax: `mguid [OPTION ...]`
+Syntax: mguid [OPTION ...]
 
-Options
--------
+Options:
 
-`-h|--help|help`: Display this help information
+    * -h|--help|help: Display this help information
 
-`-v|--version|version`: Display the mguid version
+    * -v|--version|version: Display the mguid version
 
-`-V|--validate|vadliate`: Run validation tests
+    * -V|--validate|validate: Run validation tests
 
-`version=INT`: Set the magic trick version (default 0).
+    * version=INT: Set the magic trick version (default 0).
 
-`magic=INT`: Set the magic number (default random 61 bit integer).
+    * magic=INT: Set the magic number (default random 61 bit integer).
 
-`trick=INT[,MAGIC[,VERSION]]`: Generate the check code using the magic number
-  and the magic trick version.
+    * trick=INT[,MAGIC[,VERSION]]: Generate the check code using the magic number
+      and the magic trick version.
 
-`random[=MAGIC]`: Generate a magic random GUID
+    * random[=MAGIC]: Generate a magic random GUID
 
-`check=[GUID[,MAGIC]]`: Check whether a GUID is magic
+    * check=[GUID[,MAGIC]]: Check whether a GUID is magic
 
-`same=[GUID,GUID[,MAGIC]]`: Check whether two GUIDs are generate with the same
-  magic.
+    * same=[GUID,GUID[,MAGIC]]: Check whether two GUIDs are generate with the same
+      magic.
 
-Description
------------
+Description:
 
-Magic GUIDs contain a pattern that uniquely identifiable if the magic trick is
-known.  The `random` option generates a Version 4 GUID using a random magic
-trick. If you know the magic trick you can verify that a GUID was generated
-with the trick by using the `check` option.  If you have two GUIDs, you
-can verify that they were generated using the same magic trick using the
-`same` option.
+Magic GUIDs contain a pattern that is uniquely identifiable if the magic
+number is known.  The `random`_ option generates a Version 4 GUID using a
+random magic number. If you know the magic number you can verify that a GUID
+was generated with the magic number by using the `check` option.  If you have
+two GUIDs, you can verify that they were generated using the same magic
+number using the `same` option.
 
-Command Line Examples
----------------------
+Command Line Examples:
+
+Generate a GUID using the magic number 123.
 
     $ mguid random=123
     f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af
 
-    $ magic_guid david$ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,123 && echo ok || echo fail
+Check whether the GUID was generated using the magic number 123.
+
+    $ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,123 && echo ok || echo fail
     ok
+
+Check whether the GUID was generated using the magic number 456.
 
     $ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,456 && echo ok || echo fail
     fail
 
+Generates another GUID using the magic number 123.
+
     $ mguid random=123
     2f210452-75be-4d3b-a2f2-1045275bed40
+
+Checks whether the two GUIDs were generated using the same magic number.
 
     $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,2f210452-75be-4d3b-a2f2-1045275bed40 && echo ok || echo fail
     ok
 
-    $ mguid random=456
+Generate another GUID using the magic number 456.
 
+    $ mguid random=456
     0a335b25-d565-40fd-80a3-35b25d565135
+
+Check whether the new GUID was generared using the same magic number as the old GUID
+
     $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,0a335b25-d565-40fd-80a3-35b25d565135 && echo ok || echo fail
     fail
 
-Python Examples
----------------
+Python Examples:
 
-    >>> from magic_guid import random, check, same
-    >>> random()
+Import the module.
+
+    >>> import magic_guid as mg
+
+Generate a GUID.
+
+    >>> mg.random()
     0c7d4f21-b322-41183-8086-479cd4100f63e 
 
-    >>> check(random())
+Check a GUID.
+
+    >>> mg.check(mg.random())
     True 
 
-    >>> same(random(magic=123),random(magic=123))
+Check whether two GUIDs are generated using the same magic number.
+
+    >>> mg.same(mg.random(magic=123),mg.random(magic=123))
     True 
 
-    >>> same(random(magic=123),random(magic=456))
+Check whether two GUIDs are generated using the same magic number.
+
+    >>> mg.same(mg.random(magic=123),mg.random(magic=456))
     False 
 
 """
@@ -88,6 +109,12 @@ except:
 
 VERSION = 0 # 0=magic number is recoverable, 1=magic number is unrecoverable
 
+E_OK = 0
+E_ERROR = 1
+E_EXCEPTION = 2
+
+MAGIC = None
+
 def gen(bits=60) -> int:
     """Generate a N-bit random number
 
@@ -98,13 +125,9 @@ def gen(bits=60) -> int:
         int: a N-bit random number
     """
     import random as rg
+    if MAGIC is None:
+        MAGIC = gen()
     return rg.randint(0,2**bits)
-
-E_OK = 0
-E_ERROR = 1
-E_EXCEPTION = 2
-
-MAGIC = gen()
 
 def trick(a:int,magic:int,version:int=None) -> int:
     """Generate the check code using the magic number
@@ -187,11 +210,11 @@ def same(a:str,b:str) -> bool:
     magic = trick(num,chk)
     return check(b,magic)
 
-def main(argv:[list|None]=None) -> int:
+def main(argv:[list[str]|None]=None) -> int:
     """Main CLI
 
     Arguments:
-        argv (list[str])
+        argv (list[str]): argument list
 
     Returns:
         int: exit code
@@ -232,6 +255,7 @@ def main(argv:[list|None]=None) -> int:
     return E_OK
 
 def validate():
+    """Run validation tests"""
     for n in range(10):
         m = random()
         g = m[:-1]+str((int(m[-1],16)+1)%16)
