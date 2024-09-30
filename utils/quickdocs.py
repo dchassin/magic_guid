@@ -59,7 +59,7 @@ with open("docs/index.html","w") as html:
     <br/><a href="https://www.chassin.org/">David P. Chassin</a>
     <br/><a href="https://www.eudoxys.com/">Eudoxys Sciences LLC</a>
   </center>
-  <h3 class="w3-bar-item">{package_name}</h3>
+  <title class="w3-bar-item">{package_name}</title>
   <a href="#main" class="w3-bar-item w3-button">Command Line</a>
   <a href="#python" class="w3-bar-item w3-button">Python Library</a>
   <a href="#package" class="w3-bar-item w3-button">Package Metadata</a>
