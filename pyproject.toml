@@ -33,4 +33,4 @@ Issues = "https://github.com/dchassin/magic_guid/issues"
 ChangeLog = "https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md"
 
 [project.scripts]
-mguid = "magic_guid:main_cli"
+mguid = "magic_guid:main"

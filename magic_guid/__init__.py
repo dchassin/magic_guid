@@ -1,51 +1,77 @@
 """Generate a GUID that conforms to a magic number
 
-Syntax:
-    mguid [OPTION ...]
+Syntax: mguid [OPTION ...]
 
-Options:
+Options
+-------
 
-    -h|--help|help: Display this help information
+* -h|--help|help: Display this help information
 
-    -v|--version|version: Display the mguid version
+* -v|--version|version: Display the mguid version
 
-    version=INT: Set the magic trick version (default 0).
+* version=INT: Set the magic trick version (default 0).
 
-    magic=INT: Set the magic number (default random 61 bit integer).
+* magic=INT: Set the magic number (default random 61 bit integer).
 
-    trick=NUM[,MAGIC[,VERSION]]: Generate the check code using the magic
-    number and the magic trick version.
+* trick=INT[,MAGIC[,VERSION]]: Generate the check code using the magic number
+  and the magic trick version.
 
-    random[=MAGIC]: Generate a magic random GUID
+* random[=MAGIC]: Generate a magic random GUID
 
-    check=[NUM[,MAGIC]]: Check whether a GUID is magic
+* check=[GUID[,MAGIC]]: Check whether a GUID is magic
 
-    same=[NUM,NUM[,MAGIC]]: Check whether two GUIDs are generate with the same
-    magic.
+* same=[GUID,GUID[,MAGIC]]: Check whether two GUIDs are generate with the same
+  magic.
+
+Description
+-----------
 
 Magic GUIDs contain a pattern that uniquely identifiable if the magic trick is
-known.  The `random` option generate a Version 4 GUID using a random magic
+known.  The `random` option generates a Version 4 GUID using a random magic
 trick. If you know the magic trick you can verify that a GUID was generated
-using the trick using using the `check` option.  If you have two GUIDs, you
+with the trick by using the `check` option.  If you have two GUIDs, you
 can verify that they were generated using the same magic trick using the
 `same` option.
 
-Python:
+Command Line Examples
+---------------------
 
-~~~
->>> from magic_guid import random, check, same
->>> random()
-0c7d4f21-b322-41183-8086-479cd4100f63e 
+    $ mguid random=123
+    f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af
 
->>> check(random())
-True 
+    $ magic_guid david$ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,123 && echo ok || echo fail
+    ok
 
->>> same(random(magic=123),random(magic=123))
-True 
+    $ mguid check=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,456 && echo ok || echo fail
+    fail
 
->>> same(random(magic=123),random(magic=456))
-False 
-~~~
+    $ mguid random=123
+    2f210452-75be-4d3b-a2f2-1045275bed40
+
+    $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,2f210452-75be-4d3b-a2f2-1045275bed40 && echo ok || echo fail
+    ok
+
+    $ mguid random=456
+
+    0a335b25-d565-40fd-80a3-35b25d565135
+    $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,0a335b25-d565-40fd-80a3-35b25d565135 && echo ok || echo fail
+    fail
+
+Python Examples
+---------------
+
+    >>> from magic_guid import random, check, same
+    >>> random()
+    0c7d4f21-b322-41183-8086-479cd4100f63e 
+
+    >>> check(random())
+    True 
+
+    >>> same(random(magic=123),random(magic=123))
+    True 
+
+    >>> same(random(magic=123),random(magic=456))
+    False 
 
 """
 
@@ -72,6 +98,10 @@ def gen(bits=60) -> int:
     import random as rg
     return rg.randint(0,2**bits)
 
+E_OK = 0
+E_ERROR = 1
+E_EXCEPTION = 2
+
 MAGIC = gen()
 
 def trick(a:int,magic:int,version:int=None) -> int:
@@ -88,7 +118,7 @@ def trick(a:int,magic:int,version:int=None) -> int:
     if version is None:
         version = VERSION
     if version == 0:
-        return a^magic
+        return a^int(magic)
     if version == 1:
         raise NotImplementedError("version 1 magic tricks not supported yet")
     raise ValueError("invalid magic trick version")
@@ -155,7 +185,7 @@ def same(a:str,b:str) -> bool:
     magic = trick(num,chk)
     return check(b,magic)
 
-def main_cli(argv:[list|None]=None) -> int:
+def main(argv:[list|None]=None) -> int:
     """Main CLI
 
     Arguments:
@@ -168,14 +198,17 @@ def main_cli(argv:[list|None]=None) -> int:
         argv = list(sys.argv)
 
     if len(argv) == 1:
-        print([x for x in __doc__.split("\n") if x.startswith("Syntax: ")],file=sys.stderr)
-        return 1    
+        print("\n".join([x for x in __doc__.split("\n") if x.startswith("Syntax: ")]),file=sys.stderr)
+        return E_ERROR    
     if argv[1] in ["-h","--help","help"]:
         print(__doc__)
-        return 0
+        return E_OK
     if argv[1] in ["-v","--version","version"]:
         print(__version__)
-        return 0
+        return E_OK
+    if argv[1] in ["-V","--validate","validate"]:
+        validate()
+        return E_OK
     
     for arg in argv[1:]:
         key,value = arg.split("=",1) if "=" in arg else (arg,None)
@@ -187,17 +220,16 @@ def main_cli(argv:[list|None]=None) -> int:
             args = value.split(",") if isinstance(value,str) else []
             result = globals()[key](*args)
             if isinstance(result,bool):
-                return 0 if result else 1
+                return E_OK if result else E_ERROR
             else:
                 print(result)
         else:
             print(arg,"->",key,"=",f"'{value}'")
             raise Exception(f"invalid command argument: '{arg}'")
 
-    return 0
+    return E_OK
 
-if __name__ == "__main__":
-
+def validate():
     for n in range(10):
         m = random()
         g = m[:-1]+str((int(m[-1],16)+1)%16)
@@ -207,4 +239,11 @@ if __name__ == "__main__":
         assert not check(g), f"not check('{g}') failed!"
         assert same(m,p), f"same('{m}','{p}') failed!"
         assert not same(p,q), f"not same('{p}','{q}') failed!"
+
+if __name__ == "__main__":
+    try:
+        main()
+    except:
+        e_type,e_value,e_trace = sys.exc_info()
+        print(f"ERROR: {e_type.__name__} {e_value}",file=sys.stderr)
  
