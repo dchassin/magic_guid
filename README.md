@@ -1,8 +1,7 @@
 [![validate-main](https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml/badge.svg?branch=main)](https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml)
 [![pages-build-deployment](https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment)
 
-Magic GUIDs contain a pattern that uniquely identifiable if the magic trick is
-known.  Two magic GUIDs can be compared to check if they were generated using the same magic trick.
+Magic GUIDs contain a pattern that is verifiable if the magic number is known.  Two magic GUIDs can be compared to check if they were generated using the same magic number.
 
 Installation
 ------------
