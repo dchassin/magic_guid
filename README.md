@@ -1,3 +1,4 @@
+[![validate-main](https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml/badge.svg)](https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml)
 [![pages-build-deployment](https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment)
 
 Installation
