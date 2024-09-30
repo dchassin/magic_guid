@@ -3,13 +3,28 @@
 <head>
     <title>Magic Guid</title>
     <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-<h1>Magic Guid</h1>
 
+<!-- Sidebar -->
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">Contents</h3>
+  <a href="#main" class="w3-bar-item w3-button">Command Line</a>
+  <a href="#python" class="w3-bar-item w3-button">Python Library</a>
+  <a href="#package" class="w3-bar-item w3-button">Package Metadata</a>
+</div>
+
+<!-- Page Content -->
+<div style="margin-left:15%">
+
+<h1 id="main" class="w3-container">Magic Guid</h1>
+
+<p/>
 Generate a GUID that using a magic number
 <p/>Syntax: <code>mguid [OPTION ...]</code><p/>
-<h2>Options</h2>
+<h2 class="w3-container">Options</h2>
 <p/><ul></li>
 <li><code>-h|--help|help</code>:  Display this help information</li>
 <li><code>-v|--version|version</code>:  Display the mguid version</li>
@@ -21,7 +36,7 @@ Generate a GUID that using a magic number
 <li><code>check=[GUID[,MAGIC]]</code>:  Check whether a GUID is magic</li>
 <li><code>same=[GUID,GUID[,MAGIC]]</code>:  Check whether two GUIDs are generate with the same magic.</ul>
 
-<h2>Description</h2>
+<h2 class="w3-container">Description</h2>
 <p/>Magic GUIDs contain a pattern that is uniquely identifiable if the magic
 number is known.  The <code>random</code>_ option generates a Version 4 GUID using a
 random magic number. If you know the magic number you can verify that a GUID
@@ -29,7 +44,7 @@ was generated with the magic number by using the <code>check</code> option.  If 
 two GUIDs, you can verify that they were generated using the same magic
 number using the <code>same</code> option.
 <p/>
-<h2>Command Line Examples</h2>
+<h2 class="w3-container">Command Line Examples</h2>
 <p/>Generate a GUID using the magic number 123.
 <p/><pre>$ mguid random=123
 f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af
@@ -59,7 +74,7 @@ Check whether the new GUID was generared using the same magic number as the old 
 fail
 </pre>
 
-<h2>Python Examples</h2>
+<h2 class="w3-container">Python Examples</h2>
 <p/>Import the module.
 <p/><pre>>>> import magic_guid as mg
 </pre>
@@ -80,76 +95,76 @@ Check whether two GUIDs are generated using the same magic number.
 False 
 </pre>
 
-<h1>Python Documentation</h1>
+<h1 id="python" class="w3-container">Python Documentation</h1>
 
-<h2>check(<b>a</b>:<i>str</i>, <b>magic</b>:<i>int</i>)</h2>
-Check whether a GUID was generated using a magic number
-<p/><h3>Arguments:</h3>
+<h2 class="w3-container"><b>check</b>(<b>a</b>:<i>str</i>, <b>magic</b>:<i>int</i>) &rightarrow; bool</h2>
+<p/>Check whether a GUID was generated using a magic number
+<p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>a (str)</code>:  a GUID to test</li>
 <li><code>magic (int)</code>:  the magic number to use in the test (default magic_guid.MAGIC)</li>
 </ul>
-<h3>Returns:</h3>
+<h3 class="w3-container">Returns</h3>
 <ul><li><code>bool</code>:  True if a was generated using magic, otherwise False</li>
 </ul>
-    
+<p/>    
 
-<h2>gen()</h2>
-Generate a N-bit random number
-<p/><h3>Arguments:</h3>
+<h2 class="w3-container"><b>gen</b>() &rightarrow; int</h2>
+<p/>Generate a N-bit random number
+<p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>bits (int)</code>:  the number of bits to generate (default 61)</li>
 </ul>
-<h3>Returns:</h3>
+<h3 class="w3-container">Returns</h3>
 <ul><li><code>int</code>:  a N-bit random number</li>
 </ul>
-    
+<p/>    
 
-<h2>main(<b>argv</b>:<i>[list[str] | None]</i>)</h2>
-Main CLI
-<p/><h3>Arguments:</h3>
+<h2 class="w3-container"><b>main</b>(<b>argv</b>:<i>[list[str] | None]</i>) &rightarrow; int</h2>
+<p/>Main CLI
+<p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>argv (list[str])</code>:  argument list</li>
 </ul>
-<h3>Returns:</h3>
+<h3 class="w3-container">Returns</h3>
 <ul><li><code>int</code>:  exit code</li>
 </ul>
-    
+<p/>    
 
-<h2>random(<b>magic</b>:<i>int</i>)</h2>
-Generate a GUID using a magic number
-<p/><h3>Arguments:</h3>
+<h2 class="w3-container"><b>random</b>(<b>magic</b>:<i>int</i>) &rightarrow; int</h2>
+<p/>Generate a GUID using a magic number
+<p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>magic (int)</code>:  the magic number to use (default magic_guid.MAGIC)</li>
 </ul>
-<h3>Returns:</h3>
+<h3 class="w3-container">Returns</h3>
 <ul><li><code>int</code>:  a magic GUID</li>
 </ul>
-    
+<p/>    
 
-<h2>same(<b>a</b>:<i>str</i>, <b>b</b>:<i>str</i>)</h2>
-Check whether two GUIDs were generated using the same magic number
-<p/><h3>Arguments:</h3>
+<h2 class="w3-container"><b>same</b>(<b>a</b>:<i>str</i>, <b>b</b>:<i>str</i>) &rightarrow; bool</h2>
+<p/>Check whether two GUIDs were generated using the same magic number
+<p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>a (str)</code>:  the first magic GUID</li>
 <li><code>b (str)</code>:  the second magic GUID</li>
 </ul>
-<h3>Returns:</h3>
+<h3 class="w3-container">Returns</h3>
 <ul><li><code>bool</code>:  True if a and b were generated using the same magic number</li>
 </ul>
-    
+<p/>    
 
-<h2>trick(<b>a</b>:<i>int</i>, <b>magic</b>:<i>int</i>, <b>version</b>:<i>int</i>)</h2>
-Generate the check code using the magic number
-<p/><h3>Arguments:</h3>
+<h2 class="w3-container"><b>trick</b>(<b>a</b>:<i>int</i>, <b>magic</b>:<i>int</i>, <b>version</b>:<i>int</i>) &rightarrow; int</h2>
+<p/>Generate the check code using the magic number
+<p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>a (int)</code>:  the number to run the magic trick on</li>
 <li><code>magic (int)</code>:  the magic number to use</li>
 <li><code>version (int)</code>:  the version of the magic trick to use (default magic_guid.VERSION)</li>
 </ul>
-<h3>Returns:</h3>
+<h3 class="w3-container">Returns</h3>
 <ul><li><code>int</code>:  the result of the magic trick</li>
 </ul>
-    
+<p/>    
 
-<h2>validate()</h2>
-Run validation tests
-<h2>Python Constants</h2><p/><code>E_ERROR = 1</code><p/><code>E_EXCEPTION = 2</code><p/><code>E_OK = 0</code><p/><code>MAGIC = None</code><p/><code>VERSION = 0</code>
-<h1>Package Metadata</h1>
+<h2 class="w3-container"><b>validate</b>() &rightarrow; None</h2>
+<p/>Run validation tests
+<h2 class="w3-container">Python Constants</h2><p/><code>E_ERROR = 1</code><p/><code>E_EXCEPTION = 2</code><p/><code>E_OK = 0</code><p/><code>MAGIC = None</code><p/><code>VERSION = 0</code>
+<h1 id="package" class="w3-container">Package Metadata</h1>
 <table>
 <tr><th><nobr>Metadata-Version</nobr></th><td>2.1</td></tr><tr><th><nobr>Name</nobr></th><td>magic_guid</td></tr><tr><th><nobr>Version</nobr></th><td>0.0.0a0</td></tr><tr><th><nobr>Summary</nobr></th><td>GUIDs that are verifiably generated with magic number</td></tr><tr><th><nobr>Author</nobr></th><td>David P. Chassin <dpchassin@gmail.com></td></tr><tr><th><nobr>Maintainer</nobr></th><td>David P. Chassin <dpchassin@gmail.com></td></tr><tr><th><nobr>License</nobr></th><td>MIT License</td></tr><tr><th><nobr>Project-Url</nobr></th><td>Homepage, <a href="https://github.com/dchassin/magic_guid" target="_tab">https://github.com/dchassin/magic_guid</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>Documentation, <a href="https://magic_guid.gitub.io/" target="_tab">https://magic_guid.gitub.io/</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>Repository, <a href="https://github.com/dchassin/magic_guid.git" target="_tab">https://github.com/dchassin/magic_guid.git</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>Issues, <a href="https://github.com/dchassin/magic_guid/issues" target="_tab">https://github.com/dchassin/magic_guid/issues</a></td></tr><tr><th><nobr>Project-Url</nobr></th><td>ChangeLog, <a href="https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md" target="_tab">https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md</a></td></tr><tr><th><nobr>Keywords</nobr></th><td>guid,magic</td></tr><tr><th><nobr>Classifier</nobr></th><td>Development Status :: 3 - Alpha</td></tr><tr><th><nobr>Classifier</nobr></th><td>Intended Audience :: Developers</td></tr><tr><th><nobr>Classifier</nobr></th><td>License :: OSI Approved :: MIT License</td></tr><tr><th><nobr>Classifier</nobr></th><td>Programming Language :: Python :: 3 :: Only</td></tr><tr><th><nobr>Classifier</nobr></th><td>Topic :: Software Development :: Libraries</td></tr><tr><th><nobr>Requires-Python</nobr></th><td>>=3.10</td></tr><tr><th><nobr>License-File</nobr></th><td>LICENSE</td></tr></table>
 </body>

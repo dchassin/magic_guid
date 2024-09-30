@@ -1,15 +1,15 @@
-body {
-    margin: 20px;
-}
-
 h1 {
-    background-color: lightblue;
-    color: black;
+    color:#fff!important;
+    background-color:#009688!important
 }
 
 h2 {
     background-color: lightgrey;
     color: black;
+}
+
+h3 {
+    text-decoration: underline;
 }
 
 li {
@@ -26,5 +26,9 @@ th {
 
 pre {
     background-color: #eeeeee;
+    margin-left: 20px;
+}
+
+p {
     margin-left: 20px;
 }
