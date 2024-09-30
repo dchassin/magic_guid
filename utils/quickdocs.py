@@ -53,7 +53,7 @@ with open("docs/index.html","w") as html:
 
 <!-- Sidebar -->
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-  <h3 class="w3-bar-item">Contents</h3>
+  <h3 class="w3-bar-item">{package_name}</h3>
   <a href="#main" class="w3-bar-item w3-button">Command Line</a>
   <a href="#python" class="w3-bar-item w3-button">Python Library</a>
   <a href="#package" class="w3-bar-item w3-button">Package Metadata</a>
@@ -62,7 +62,7 @@ with open("docs/index.html","w") as html:
 <!-- Page Content -->
 <div style="margin-left:15%">
 
-<h1 id="main" class="w3-container">{package_name}</h1>
+<h1 id="main" class="w3-container">Command Line</h1>
 
 <p/>""",md=False,nl=True)
     for line in module.__doc__.split("\n"):
@@ -92,7 +92,7 @@ with open("docs/index.html","w") as html:
             write_html(f"{line}\n")
 
     set_mode(None)
-    write_html("""\n<h1 id="python" class="w3-container">Python Documentation</h1>\n""")
+    write_html("""\n<h1 id="python" class="w3-container">Python Library</h1>\n""")
 
     for name in dir(module):
         set_mode(None)

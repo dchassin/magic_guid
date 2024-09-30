@@ -62,7 +62,8 @@ Generates another GUID using the magic number 123.
 
 Checks whether the two GUIDs were generated using the same magic number.
 
-    $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,2f210452-75be-4d3b-a2f2-1045275bed40 && echo ok || echo fail
+    $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,2f210452-75be-4d3b-a2f2-1\
+    045275bed40 && echo ok || echo fail
     ok
 
 Generate another GUID using the magic number 456.
@@ -72,7 +73,8 @@ Generate another GUID using the magic number 456.
 
 Check whether the new GUID was generared using the same magic number as the old GUID
 
-    $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,0a335b25-d565-40fd-80a3-35b25d565135 && echo ok || echo fail
+    $ mguid same=f2ac57d8-e3e5-45d4-bf2a-c57d8e3e55af,0a335b25-d565-40fd-80a3-3\
+    5b25d565135 && echo ok || echo fail
     fail
 
 Python Examples:
@@ -106,10 +108,11 @@ Check whether two GUIDs are generated using the same magic number.
 import sys
 import typing
 import importlib.metadata
+import random as rg
 
 try:
     __version__ = importlib.metadata.version(__name__)
-except:
+except importlib.metadata.PackageNotFoundError:
     __version__ = None
 
 VERSION = 0 # 0=magic number is recoverable, 1=magic number is unrecoverable
@@ -129,9 +132,7 @@ def gen(bits=60) -> int:
     Returns:
         int: a N-bit random number
     """
-    import random as rg
-    if MAGIC is None:
-        MAGIC = gen()
+    globals()["MAGIC"] = gen()
     return rg.randint(0,2**bits)
 
 def trick(a:int,magic:int,version:int=None) -> int:
@@ -167,8 +168,8 @@ def random(magic:int=None) -> int:
     src = gen()
     num = f"{src:015x}"
     chk = f"{trick(src,magic):015x}"
-    N = f"{(int(chk[0],16)&3)+8:x}"
-    return f"{num[0:8]}-{num[8:12]}-4{num[12:15]}-{N}{chk[0:3]}-{chk[3:]}"
+    n = f"{(int(chk[0],16)&3)+8:x}"
+    return f"{num[0:8]}-{num[8:12]}-4{num[12:15]}-{n}{chk[0:3]}-{chk[3:]}"
 
 def check(a:str,magic:int=None) -> bool:
     """Check whether a GUID was generated using a magic number
@@ -182,7 +183,7 @@ def check(a:str,magic:int=None) -> bool:
     """
     if magic is None:
         magic = MAGIC
-    field = [x for x in a.split("-")]
+    field = a.split("-")
     if len(field) != 5:
         return False
     if field[2][0] != "4":
@@ -203,7 +204,7 @@ def same(a:str,b:str) -> bool:
     Returns:
         bool: True if a and b were generated using the same magic number
     """
-    field = [x for x in a.split("-")]
+    field = a.split("-")
     if len(field) != 5:
         return False
     if field[2][0] != "4":
@@ -224,12 +225,13 @@ def main(argv:[list[str]|None]=None) -> int:
     Returns:
         int: exit code
     """
-    if argv == None:
+    if argv is None:
         argv = list(sys.argv)
 
     if len(argv) == 1:
-        print("\n".join([x for x in __doc__.split("\n") if x.startswith("Syntax: ")]),file=sys.stderr)
-        return E_ERROR    
+        print("\n".join([x for x in __doc__.split("\n")
+            if x.startswith("Syntax: ")]),file=sys.stderr)
+        return E_ERROR
     if argv[1] in ["-h","--help","help"]:
         print(__doc__)
         return E_OK
@@ -239,29 +241,28 @@ def main(argv:[list[str]|None]=None) -> int:
     if argv[1] in ["-V","--validate","validate"]:
         validate()
         return E_OK
-    
+
     for arg in argv[1:]:
         key,value = arg.split("=",1) if "=" in arg else (arg,None)
         if key == "version":
-            VERSION = value
+            globals()['VERSION'] = value
         elif key == "magic":
-            MAGIN = value
+            globals()['MAGIC'] = value
         elif key in ["random","check","same","gen","trick"]:
             args = value.split(",") if isinstance(value,str) else []
             result = globals()[key](*args)
             if isinstance(result,bool):
                 return E_OK if result else E_ERROR
-            else:
-                print(result)
+            print(result)
         else:
             print(arg,"->",key,"=",f"'{value}'")
-            raise Exception(f"invalid command argument: '{arg}'")
+            raise ValueError(f"invalid command argument: '{arg}'")
 
     return E_OK
 
 def validate():
     """Run validation tests"""
-    for n in range(10):
+    for _ in range(10):
         m = random()
         g = m[:-1]+str((int(m[-1],16)+1)%16)
         p = random()
@@ -274,7 +275,7 @@ def validate():
 if __name__ == "__main__":
     try:
         main()
-    except:
+    # pylint: disable-next=W0718
+    except Exception:
         e_type,e_value,e_trace = sys.exc_info()
         print(f"ERROR: {e_type.__name__} {e_value}",file=sys.stderr)
- 

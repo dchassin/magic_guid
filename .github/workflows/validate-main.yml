@@ -13,5 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Lint
+      run: |
+        sudo python -m pip install pip --upgrade pylint
+        pylint magic_guid/__init__.py
+
     - name: Validate
       run: python magic_guid/__init__.py validate
