@@ -132,7 +132,6 @@ def gen(bits=60) -> int:
     Returns:
         int: a N-bit random number
     """
-    globals()["MAGIC"] = gen()
     return rg.randint(0,2**bits)
 
 def trick(a:int,magic:int,version:int=None) -> int:
@@ -163,6 +162,8 @@ def random(magic:int=None) -> int:
     Returns:
         int: a magic GUID
     """
+    if globals()["MAGIC"] is None:
+        globals()["MAGIC"] = gen()
     if magic is None:
         magic = MAGIC
     src = gen()
@@ -181,6 +182,8 @@ def check(a:str,magic:int=None) -> bool:
     Returns:
         bool: True if a was generated using magic, otherwise False
     """
+    if globals()["MAGIC"] is None:
+        globals()["MAGIC"] = gen()
     if magic is None:
         magic = MAGIC
     field = a.split("-")
