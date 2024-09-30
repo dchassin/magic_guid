@@ -1,26 +1,19 @@
 <p>Generate a GUID that conforms to a magic number</p>
-<p>Syntax: mguid [OPTION …]</p>
+<p>Syntax: <code>mguid [OPTION ...]</code></p>
 <h2 id="options">Options</h2>
-<ul>
-<li><p><code>-h|--help|help</code>: Display this help
-information</p></li>
-<li><p><code>-v|--version|version</code>: Display the mguid
-version</p></li>
-<li><p><code>-V|--validate|vadliate</code>: Run validation
-tests</p></li>
-<li><p><code>version=INT</code>: Set the magic trick version (default
-0).</p></li>
-<li><p><code>magic=INT</code>: Set the magic number (default random 61
-bit integer).</p></li>
-<li><p><code>trick=INT[,MAGIC[,VERSION]]</code>: Generate the check code
-using the magic number and the magic trick version.</p></li>
-<li><p><code>random[=MAGIC]</code>: Generate a magic random
-GUID</p></li>
-<li><p><code>check=[GUID[,MAGIC]]</code>: Check whether a GUID is
-magic</p></li>
-<li><p><code>same=[GUID,GUID[,MAGIC]]</code>: Check whether two GUIDs
-are generate with the same magic.</p></li>
-</ul>
+<p><code>-h|--help|help</code>: Display this help information</p>
+<p><code>-v|--version|version</code>: Display the mguid version</p>
+<p><code>-V|--validate|vadliate</code>: Run validation tests</p>
+<p><code>version=INT</code>: Set the magic trick version (default
+0).</p>
+<p><code>magic=INT</code>: Set the magic number (default random 61 bit
+integer).</p>
+<p><code>trick=INT[,MAGIC[,VERSION]]</code>: Generate the check code
+using the magic number and the magic trick version.</p>
+<p><code>random[=MAGIC]</code>: Generate a magic random GUID</p>
+<p><code>check=[GUID[,MAGIC]]</code>: Check whether a GUID is magic</p>
+<p><code>same=[GUID,GUID[,MAGIC]]</code>: Check whether two GUIDs are
+generate with the same magic.</p>
 <h2 id="description">Description</h2>
 <p>Magic GUIDs contain a pattern that uniquely identifiable if the magic
 trick is known. The <code>random</code> option generates a Version 4
