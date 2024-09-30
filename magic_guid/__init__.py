@@ -5,24 +5,24 @@ Syntax: mguid [OPTION ...]
 Options
 -------
 
-* -h|--help|help: Display this help information
+* `-h|--help|help`: Display this help information
 
-* -v|--version|version: Display the mguid version
+* `-v|--version|version`: Display the mguid version
 
-* -V|--validate|vadliate: Run validation tests
+* `-V|--validate|vadliate`: Run validation tests
 
-* version=INT: Set the magic trick version (default 0).
+* `version=INT`: Set the magic trick version (default 0).
 
-* magic=INT: Set the magic number (default random 61 bit integer).
+* `magic=INT`: Set the magic number (default random 61 bit integer).
 
-* trick=INT[,MAGIC[,VERSION]]: Generate the check code using the magic number
+* `trick=INT[,MAGIC[,VERSION]]`: Generate the check code using the magic number
   and the magic trick version.
 
-* random[=MAGIC]: Generate a magic random GUID
+* `random[=MAGIC]`: Generate a magic random GUID
 
-* check=[GUID[,MAGIC]]: Check whether a GUID is magic
+* `check=[GUID[,MAGIC]]`: Check whether a GUID is magic
 
-* same=[GUID,GUID[,MAGIC]]: Check whether two GUIDs are generate with the same
+* `same=[GUID,GUID[,MAGIC]]`: Check whether two GUIDs are generate with the same
   magic.
 
 Description
