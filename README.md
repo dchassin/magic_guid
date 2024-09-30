@@ -20,4 +20,4 @@ mguid help
 Documentation
 -------------
 
-See [https://www.chassin.org/magic_guid/] for online documentation.
+See https://www.chassin.org/magic_guid/ for online documentation.
