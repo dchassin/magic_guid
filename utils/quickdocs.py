@@ -101,15 +101,16 @@ with open("docs/index.html","w") as html:
         value = getattr(module,name)
         if callable(value):
             if isinstance(value.__doc__,str):
-                write_html(f"""\n<h2 class="w3-container"><b>{name}</b>(""")
-                write_html(", ".join([f"<b>{str(a)}</b>:<i>{b.__name__ if hasattr(b,"__name__") else str(b)}</i>" for a,b in value.__annotations__.items() if a != "return"]))
+                write_html(f"""\n<h2 class="w3-container"><code><b>{name}</b>(""")
+                args = [f"<b>{str(a)}</b>:{re.sub(r'([A-Za-z]+)',r'<i>\1</i>',b.__name__ if hasattr(b,"__name__") else str(b))}" for a,b in value.__annotations__.items() if a != "return"]
+                write_html(", ".join(args))
                 write_html(")")
                 try:
                     c = value.__annotations__["return"]
-                    write_html(f" &rightarrow; {c.__name__ if hasattr(c,"__name__") else str(c)}")
+                    write_html(f" &rightarrow; *{c.__name__ if hasattr(c,"__name__") else str(c)}*")
                 except:
-                    write_html(f" &rightarrow; None")
-                write_html("</h2>\n")
+                    write_html(f" &rightarrow; *None*")
+                write_html("</code></h2>\n")
                 
                 for line in value.__doc__.split("\n"):
                     if len(line) == 0:
