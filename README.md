@@ -24,3 +24,15 @@ Documentation
 -------------
 
 See https://www.chassin.org/magic_guid/ for online documentation.
+
+
+Contributions
+-------------
+
+The implementation code is located in `magic_guid/__init__.py`.
+
+After updating the code, you must update and push the documentation using the `Makefile`, e.g.
+
+~~~
+$ make
+~~~
