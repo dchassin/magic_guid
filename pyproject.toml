@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "magic_guid"
+version = "0.0.0a0"
+description = "GUIDs generated with magic number that is verifiable"
+authors = [
+    {name = "David P. Chassin", email="dpchassin@gmail.com"},
+    ]
+maintainers = [
+    {name = "David P. Chassin", email="dpchassin@gmail.com"},
+    ]
+readme = "README.md"
+requires-python = ">= 3.10"
+dependencies = [
+    ]
+keywords = ["guid","magic"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries",
+    ]
+
+[project.urls]
+Homepage = "https://github.com/dchassin/magic_guid"
+Documentation = "https://magic_guid.gitub.io/"
+Repository = "https://github.com/dchassin/magic_guid.git"
+Issues = "https://github.com/dchassin/magic_guid/issues"
+ChangeLog = "https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md"
+
+[project.scripts]
+mguid = "magic_guid:main_cli"
