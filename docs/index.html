@@ -60,7 +60,13 @@ first time you use the <code>random()</code> function. You can set the magic num
 the <code>MAGIC` module constant, e.g., `MAGIC=gen()`, `MAGIC=123456</code>.  
 <p/>
 <h2 class="w3-container">Caveat</h2>
-<p/>Magic GUIDs should not be used for security or identity purposes.
+<p/>Magic GUIDs should not be used for security or identity purposes. Also, because
+the encoding reduces the number of valid GUIDs the probability of a GUID class
+is increased somewhat.  For <code>VERSION=0</code> only 60 bits are available for
+generating unique GUIDs, meaning that there are only 1,152,921,504,606,846,976
+possible magical GUIDs instead of the normal
+5,316,911,983,139,663,491,615,228,241,121,378,304 possible muggle Version 4
+GUIDs.
 <p/>
 <h2 class="w3-container">Command Line Examples</h2>
 <p/>Generate a GUID using the magic number 123.
@@ -113,6 +119,9 @@ Check whether two GUIDs are generated using the same magic number.
 False 
 </pre>
 
+<h2 class="w3-container">See also</h2>
+<p/>* <a href="https://datatracker.ietf.org/doc/html/rfc9562" target="_tab">https://datatracker.ietf.org/doc/html/rfc9562</a>
+<p/>
 <h1 id="python" class="w3-container">Python Library</h1>
 
 <h2 class="w3-container"><code><b>check</b>(<b>a</b>:<i>str</i>, <b>magic</b>:<i>int</i>) &rightarrow; <i>bool</i></code></h2>

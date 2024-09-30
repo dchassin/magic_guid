@@ -46,7 +46,13 @@ the `MAGIC` module constant, e.g., `MAGIC=gen()`, `MAGIC=123456`.
 
 Caveat:
 
-Magic GUIDs should not be used for security or identity purposes.
+Magic GUIDs should not be used for security or identity purposes. Also, because
+the encoding reduces the number of valid GUIDs the probability of a GUID class
+is increased somewhat.  For `VERSION=0` only 60 bits are available for
+generating unique GUIDs, meaning that there are only 1,152,921,504,606,846,976
+possible magical GUIDs instead of the normal
+5,316,911,983,139,663,491,615,228,241,121,378,304 possible muggle Version 4
+GUIDs.
 
 Command Line Examples:
 
@@ -113,6 +119,9 @@ Check whether two GUIDs are generated using the same magic number.
     >>> mg.same(mg.random(magic=123),mg.random(magic=456))
     False 
 
+See also:
+
+* https://datatracker.ietf.org/doc/html/rfc9562
 """
 
 import sys
