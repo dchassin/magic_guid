@@ -53,7 +53,12 @@ with open("docs/index.html","w") as html:
 <body>
 
 <!-- Sidebar -->
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:180px">
+  <center>
+    <img src="https://avatars.githubusercontent.com/u/20801735?v=4" height="128px" width="128px"/>
+    <br/><a href="https://www.chassin.org/">David P. Chassin</a>
+    <br/><a href="https://www.eudoxys.com/">Eudoxys Sciences LLC</a>
+  </center>
   <h3 class="w3-bar-item">{package_name}</h3>
   <a href="#main" class="w3-bar-item w3-button">Command Line</a>
   <a href="#python" class="w3-bar-item w3-button">Python Library</a>
@@ -61,7 +66,7 @@ with open("docs/index.html","w") as html:
 </div>
 
 <!-- Page Content -->
-<div style="margin-left:15%">
+<div style="margin-left:180px">
 
 <h1 id="main" class="w3-container">Command Line</h1>
 
