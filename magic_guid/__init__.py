@@ -47,7 +47,7 @@ the `MAGIC` module constant, e.g., `MAGIC=gen()`, `MAGIC=123456`.
 Caveat:
 
 Magic GUIDs should not be used for security or identity purposes. Also, because
-the encoding reduces the number of valid GUIDs the probability of a GUID class
+the encoding reduces the number of valid GUIDs the probability of a GUID clash
 is increased somewhat.  For `VERSION=0` only 60 bits are available for
 generating unique GUIDs, meaning that there are only 1,152,921,504,606,846,976
 possible magical GUIDs instead of the normal
