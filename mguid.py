@@ -124,8 +124,8 @@ See also:
 * https://datatracker.ietf.org/doc/html/rfc9562
 """
 
+import os
 import sys
-import typing
 import importlib.metadata
 import random as rg
 
@@ -301,4 +301,5 @@ if __name__ == "__main__":
     # pylint: disable-next=W0718
     except Exception:
         e_type,e_value,e_trace = sys.exc_info()
-        print(f"ERROR [{os.path.basename(sys.argv[0])}]: {e_type.__name__} {e_value}",file=sys.stderr)
+        print(f"ERROR [{os.path.basename(sys.argv[0])}]: {e_type.__name__} {e_value}",
+            file=sys.stderr)
