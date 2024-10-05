@@ -29,11 +29,38 @@ th {
     text-align: left;
 }
 
+tr {
+    vertical-align: top;
+}
+
 pre {
+    font-family: courier;
     background-color: #eeeeee;
     margin-left: 20px;
 }
 
 p {
     margin-left: 20px;
+    margin-right: 40px;
+}
+
+font.highlight
+{
+    background-color: lightyellow;
+}
+
+a:hover {
+    background-color: lightyellow;
+}
+
+code {
+    font-family: courier;
+}
+
+code:hover {
+    background-color: lightblue;
+}
+
+pre:hover {
+    background-color: lightblue;
 }
