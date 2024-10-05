@@ -1,6 +1,7 @@
 [![validate-main](https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml/badge.svg?branch=main)](https://github.com/dchassin/magic_guid/actions/workflows/validate-main.yml)
 [![pages-build-deployment](https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/magic_guid/actions/workflows/pages/pages-build-deployment)
 [![Publish PyPI](https://github.com/dchassin/magic_guid/actions/workflows/publish-tagged.yml/badge.svg)](https://github.com/dchassin/magic_guid/actions/workflows/publish-tagged.yml)
+
 Magic GUIDs contain a pattern that is verifiable if the magic number is known.  Two magic GUIDs can be compared to check if they were generated using the same magic number.
 
 Installation
@@ -8,31 +9,66 @@ Installation
 
 To install from a repository
 
-~~~
-git clone https://github.com/dchassin/magic_guid
-python3 -m pip install magic_guid
-~~~
+    python3 -m pip install git+https://github.com/eudoxys/mguid
 
-Command Line Help
------------------
+Shell Usage
+-----------
 
-~~~
-mguid help
-~~~
+Command line help:
+
+    mguid help
+
+Create a magic GUID:
+
+    mguid random
+
+Create a GUID using a magic number
+
+    mguid random=123
+
+Compare magic GUIDs
+
+    a=$(mguid random=123)
+    echo $a
+    b=$(mguid random=123)
+    echo $b
+    c=$(mguid random=456)
+    echo $c
+    mguid same=$a,$b && echo yes || echo no
+    mguid same=$a,$c && echo yes || echo no
+
+Python Usage
+------------
+
+Import the module
+
+    import mguid
+
+Generate a magic GUID:
+
+    mg.random()
+
+Check a magic GUID:
+
+    mg.check(mg.random())
+
+Compare two magic GUIDs:
+
+    mg.same(mg.random(123),mg.random(123))
+    mg.same(mg.random(123),mg.random(456))
 
 Documentation
 -------------
 
-See https://www.chassin.org/magic_guid/ for online documentation.
-
+See https://www.chassin.org/mguid/ for online documentation.
 
 Contributions
 -------------
 
-The implementation code is located in `magic_guid/__init__.py`.
+The implementation code is located in `mguid.py`.
 
 After updating the code, you must update and push the documentation using the `Makefile`, e.g.
 
-~~~
-$ make
-~~~
+    make
+    git commit -a -m "Updated code"
+    git push

@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools","qdox @ git+https://github.com/eudoxys/qdox"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "magic_guid"
-version = "0.0.0a0"
+name = "mguid"
+version = "0.0.0a1"
 description = "GUIDs that are verifiably generated with magic number"
 authors = [
     {name = "David P. Chassin <dpchassin@gmail.com>"},
@@ -27,11 +27,10 @@ classifiers = [
     ]
 
 [project.urls]
-Homepage = "https://github.com/dchassin/magic_guid"
-Documentation = "https://magic_guid.gitub.io/"
-Repository = "https://github.com/dchassin/magic_guid.git"
-Issues = "https://github.com/dchassin/magic_guid/issues"
-ChangeLog = "https://github.com/dchassin/magic_guid/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/eudoxys/mguid"
+Documentation = "https://mguid.gitub.io/"
+Repository = "https://github.com/eudoxys/mguid.git"
+Issues = "https://github.com/eudoxys/mguid/issues"
 
 [project.scripts]
-mguid = "magic_guid:main"
+mguid = "mguid:main"

@@ -1,6 +1,8 @@
 name: Publish PyPI
 
-on: push
+on: 
+  push:
+    branches: [main]
 
 jobs:
   build:
