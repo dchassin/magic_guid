@@ -97,7 +97,7 @@ Python Examples:
 
 Import the module.
 
-    >>> import magic_guid as mg
+    >>> import mguid as mg
 
 Generate a GUID.
 
@@ -159,7 +159,7 @@ def trick(a:int,magic:int,version:int=None) -> int:
     Arguments:
         a (int): the number to run the magic trick on
         magic (int): the magic number to use
-        version (int): the version of the magic trick to use (default magic_guid.VERSION)
+        version (int): the version of the magic trick to use (default mguid.VERSION)
 
     Returns:
         int: the result of the magic trick
@@ -176,7 +176,7 @@ def random(magic:int=None) -> int:
     """Generate a GUID using a magic number
 
     Arguments:
-        magic (int): the magic number to use (default magic_guid.MAGIC)
+        magic (int): the magic number to use (default mguid.MAGIC)
 
     Returns:
         int: a magic GUID
@@ -196,7 +196,7 @@ def check(a:str,magic:int=None) -> bool:
 
     Arguments:
         a (str): a GUID to test
-        magic (int): the magic number to use in the test (default magic_guid.MAGIC)
+        magic (int): the magic number to use in the test (default mguid.MAGIC)
 
     Returns:
         bool: True if a was generated using magic, otherwise False
