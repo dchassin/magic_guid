@@ -11,6 +11,11 @@ To install from a repository
 
     python3 -m pip install git+https://github.com/eudoxys/mguid
 
+Documentation
+-------------
+
+See https://www.eudoxys.com/mguid/ for online documentation.
+
 Shell Usage
 -----------
 
@@ -56,11 +61,6 @@ Compare two magic GUIDs:
 
     mg.same(mg.random(123),mg.random(123))
     mg.same(mg.random(123),mg.random(456))
-
-Documentation
--------------
-
-See https://www.eudoxys.com/mguid/ for online documentation.
 
 Contributions
 -------------
