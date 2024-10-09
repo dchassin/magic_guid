@@ -60,7 +60,7 @@ Compare two magic GUIDs:
 Documentation
 -------------
 
-See https://www.chassin.org/mguid/ for online documentation.
+See https://www.eudoxys.com/mguid/ for online documentation.
 
 Contributions
 -------------
